@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+declare var require:any;
 const postData = require('../../post.json');
 const similarPostData = require('../../similarPosts.json');
 
@@ -22,24 +23,46 @@ export class FolderPage implements OnInit {
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id');
     this.postJoson = postData;
+    this.similarPosts = similarPostData;
     console.log(this.postJoson);
-    
     for(let i=0;i<this.postJoson.length;i++){
+      if(this.postJoson[i].likes > 999 || this.postJoson.comments > 999) {
+        this.postJoson[i].likes = Math.round(this.postJoson[i].likes / 1000) + 'k';
+        this.postJoson[i].comments = Math.round(this.postJoson[i].comments / 1000) + 'k';
+      }
     if(this.postJoson[i].user == "Abdul"){
       this.myPost.push(this.postJoson[i]);
     }
   }
-    this.similarPosts = similarPostData;
   }
 
-  addFood() {
-    this.food = true;
-    this.similarPosts = this.similarPosts.concat(this.postJoson);
+  addTag(tagname) {
+    if(tagname == "food"){
+      this.food = true;
+    } else if (tagname == "travel") {
+      this.travel = true;
+    }
+    for(let i=0;i<this.postJoson.length;i++){
+      const result = this.postJoson[i].hashTags.filter(tag => tag == tagname);      
+      if(result == tagname){
+
+         this.similarPosts.unshift(this.postJoson[i]);
+       }
+    }
   }
 
-  addTravel() {
-    this.travel = true;
-    this.similarPosts = this.similarPosts.concat(this.travelPost);
+  deleteTag(tagname) {
+    if(tagname == "food"){
+      this.food = false;
+    } else if (tagname == "travel") {
+      this.travel = false;
+    }
+    for(let i=0;i<this.similarPosts.length;i++){
+      const result = this.similarPosts[i].hashTags.filter(tag => tag == tagname);      
+      if(result == tagname){
+         this.similarPosts.shift(this.similarPosts[i]);
+       }
+    }
   }
 
 }

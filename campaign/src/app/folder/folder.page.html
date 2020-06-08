@@ -19,28 +19,28 @@
 
   <div id="container">
     <ion-item lines="none">
-      <ion-chip color="warning" disabled="true">
+      <ion-chip color="warning">
         <ion-label color="dark">#CheeseLove</ion-label>
       </ion-chip>
-      <ion-chip color="warning" disabled="true">
+      <ion-chip color="warning">
         <ion-label color="dark">#Wine</ion-label>
       </ion-chip>
       <ion-chip color="warning" *ngIf="food == true">
         <ion-label color="dark">#food</ion-label>
-        <ion-icon name="close-circle" (click)="removeFood()"></ion-icon>
+        <ion-icon name="close-circle" (click)="deleteTag('food')"></ion-icon>
       </ion-chip>
       <ion-chip color="warning" *ngIf="travel == true">
         <ion-label color="dark">#travel</ion-label>
-        <ion-icon name="close-circle" (click)="removeTravel()"></ion-icon>
+        <ion-icon name="close-circle" (click)="deleteTag('travel')"></ion-icon>
       </ion-chip>
     </ion-item>  
   </div>
   <ion-item lines="none">
     <label id="hastag">Hashtags :</label>
-    <ion-chip color="warning" (click)="addFood()">
+    <ion-chip color="warning" (click)="addTag('food')">
       <ion-label color="dark">#food</ion-label>
     </ion-chip>
-    <ion-chip color="warning" (click)="addTravel()">
+    <ion-chip color="warning" (click)="addTag('travel')">
       <ion-label color="dark">#travel</ion-label>
     </ion-chip>
   </ion-item>
