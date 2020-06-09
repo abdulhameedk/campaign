@@ -18,7 +18,7 @@
   </ion-header> -->
 
   <div id="container">
-    <ion-item lines="none">
+    <ion-item lines="none" class="border">
       <ion-chip color="warning">
         <ion-label color="dark">#CheeseLove</ion-label>
       </ion-chip>
@@ -48,17 +48,19 @@
     <ion-label>Your Posts</ion-label>
   </ion-item>
   <ion-item lines="none">
-    <div class="contaier" *ngFor="let item of myPost; index as i">
-    <div id="timer"><ion-icon name="time-outline"></ion-icon>{{item.date}}</div>
-      <ion-thumbnail id="myPosts">
-        <img src={{item.url}}>
-      </ion-thumbnail>
-      <ion-label id="comments"><ion-icon id="iconPad" name="heart"></ion-icon>{{item.likes}} <ion-icon id="iconPad" name="chatbox"></ion-icon>{{item.likes}}</ion-label>
+    <div class="scrollable">
+      <div class="contaier" *ngFor="let item of myPost; index as i">
+        <div id="timer"><ion-icon name="time-outline"></ion-icon>{{item.date}}</div>
+          <ion-thumbnail id="myPosts">
+            <img src={{item.url}}>
+          </ion-thumbnail>
+          <ion-label id="comments"><ion-icon id="iconPad" name="heart"></ion-icon>{{item.likes}} <ion-icon id="iconPad" name="chatbox"></ion-icon>{{item.likes}}</ion-label>
+        </div>
     </div>
   </ion-item>
   <ion-item lines="none">
     <ion-label slot="start">Similar Posts</ion-label>
-    <ion-label slot="end">24 Posts</ion-label>
+    <ion-label slot="end">{{postLength}} Posts</ion-label>
   </ion-item>
   <ion-item lines="none">
     <ion-grid>

@@ -17,13 +17,14 @@ export class FolderPage implements OnInit {
   travel: boolean;
   travelPost: any;
   myPost= [];
-
+  postLength;
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id');
     this.postJoson = postData;
     this.similarPosts = similarPostData;
+    this.postLength = this.similarPosts.length;
     console.log(this.postJoson);
     for(let i=0;i<this.postJoson.length;i++){
       if(this.postJoson[i].likes > 999 || this.postJoson.comments > 999) {
@@ -47,6 +48,7 @@ export class FolderPage implements OnInit {
       if(result == tagname){
 
          this.similarPosts.unshift(this.postJoson[i]);
+         this.postLength = this.similarPosts.length;
        }
     }
   }
@@ -58,9 +60,11 @@ export class FolderPage implements OnInit {
       this.travel = false;
     }
     for(let i=0;i<this.similarPosts.length;i++){
-      const result = this.similarPosts[i].hashTags.filter(tag => tag == tagname);      
+      const result = this.similarPosts[i].hashTags.filter(tag => tag == tagname);
       if(result == tagname){
-         this.similarPosts.shift(this.similarPosts[i]);
+        const index = this.similarPosts.indexOf(this.similarPosts[i]);
+         this.similarPosts.splice(index,1);
+         this.postLength = this.similarPosts.length;       
        }
     }
   }
